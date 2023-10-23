@@ -1,3 +1,12 @@
-import streamlit as st
+from inicioUI import InicioUI
+from equacaoUI import EquacaoUI
+from Agenda.models.manterclienteUI import ManterClienteUI
 
-st.write('Teste')
+class IndexUI:
+  def main():
+    #InicioUI.main()
+    #EquacaoUI.main()
+    ManterClienteUI.main()
+
+
+IndexUI.main()
