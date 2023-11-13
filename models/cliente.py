@@ -39,12 +39,23 @@ class Cliente:
 class NCliente:
   __clientes = []  # lista de clientes inicia vazia
 
+  # @classmethod
+  # def check_nome(cls, nome):
+  #   for cliente in cls.__clientes:
+  #     if cliente.get_nome() == " ":
+  #       return True
+  #   return False
+
+
+
   @classmethod
   def check_duplicate_email(cls, email):
     for cliente in cls.__clientes:
       if cliente.get_email() == email:
         return True
     return False
+
+
 
   @classmethod
   def inserir(cls, obj):

@@ -7,7 +7,14 @@ import datetime
 class View:
   def cliente_inserir(nome, email, fone, senha):
     cliente = Cliente(0, nome, email, fone, senha)
+    if nome == " ": raise valueError()
+    if fone == "": raise valueError()
+    if senha == "": raise valueError()
+    if NCliente.check_duplicate_email() == True: raise valueError()
+
     return NCliente.inserir(cliente)
+  
+
 
   def cliente_listar():
     return NCliente.listar()
@@ -17,7 +24,15 @@ class View:
 
   def cliente_atualizar(id, nome, email, fone, senha):
     cliente = Cliente(id, nome, email, fone, senha)
+    if nome == " ": raise valueError()
+    if fone == "": raise valueError()
+    if senha == "": raise valueError()
+    if NCliente.check_duplicate_email() == True: raise valueError()
+
     NCliente.atualizar(cliente)
+
+  
+
     
   def cliente_excluir(id):
     cliente = Cliente(id, "", "", "", "")
@@ -49,6 +64,9 @@ class View:
     return NServico.listar_id(id)
 
   def servico_inserir(descricao, valor, duracao):
+    if descricao == "": raise ValueError()
+    if valor <0: raise ValueError()
+    if duracao <=0: raise ValueError()
     NServico.inserir(Servico(0, descricao, valor, duracao))
 
   def servico_atualizar(id, descricao, valor, duracao):
