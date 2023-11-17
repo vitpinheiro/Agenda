@@ -7,10 +7,10 @@ import datetime
 class View:
   def cliente_inserir(nome, email, fone, senha):
     cliente = Cliente(0, nome, email, fone, senha)
-    if nome == " ": raise valueError()
-    if fone == "": raise valueError()
-    if senha == "": raise valueError()
-    if NCliente.check_duplicate_email() == True: raise valueError()
+    if nome == " ": raise ValueError()
+    if fone == " ": raise ValueError()
+    if senha == " ": raise ValueError()
+    if NCliente.emailduplicado(email) == True: raise ValueError()
 
     return NCliente.inserir(cliente)
   
@@ -24,10 +24,10 @@ class View:
 
   def cliente_atualizar(id, nome, email, fone, senha):
     cliente = Cliente(id, nome, email, fone, senha)
-    if nome == " ": raise valueError()
-    if fone == "": raise valueError()
-    if senha == "": raise valueError()
-    if NCliente.check_duplicate_email() == True: raise valueError()
+    if nome == " ": raise ValueError()
+    if fone == "": raise ValueError()
+    if senha == "": raise ValueError()
+    if NCliente.emailduplicado() == True: raise ValueError()
 
     NCliente.atualizar(cliente)
 
@@ -70,6 +70,9 @@ class View:
     NServico.inserir(Servico(0, descricao, valor, duracao))
 
   def servico_atualizar(id, descricao, valor, duracao):
+    if descricao == "": raise ValueError()
+    if valor <0: raise ValueError()
+    if duracao <=0: raise ValueError()
     NServico.atualizar(Servico(id, descricao, valor, duracao))
 
   def servico_excluir(id):
@@ -96,6 +99,7 @@ class View:
     return r    
 
   def agenda_inserir(data, confirmado, id_cliente, id_servico):
+
     NAgenda.inserir(Agenda(0, data, confirmado, id_cliente, id_servico))
 
   def agenda_atualizar(id, data, confirmado, id_cliente, id_servico):
@@ -109,7 +113,9 @@ class View:
     data_fim = datetime.datetime.strptime(f"{data} {hfim}", "%d/%m/%Y %H:%M")
     delta = datetime.timedelta(minutes = intervalo) 
     aux = data_inicio
+    if intervalo <0: raise ValueError()
     while aux <= data_fim :
       NAgenda.inserir(Agenda(0, aux, False, 0, 0))
       aux = aux + delta
 
+ 

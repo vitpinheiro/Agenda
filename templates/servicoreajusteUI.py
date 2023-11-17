@@ -4,10 +4,10 @@ import pandas as pd
 from views import View
 
 
-class ServicoreajusteUI:
+class ServicoReajusteUI:
   def main():
     st.header("Reajuste dos valores")
-    ServicoreajusteUI.listar()
+    ServicoReajusteUI.listar()
 
 
   def listar():

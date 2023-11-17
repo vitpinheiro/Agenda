@@ -4,44 +4,48 @@ from templates.manteragendaUI import ManterAgendaUI
 from templates.abriragendaUI import AbrirAgendaUI
 from templates.loginUI import LoginUI
 from templates.agendahojeUI import AgendaHojeUI
-from templates.servicoreajusteUI import ServicoreajusteUI
+from templates.servicoreajusteUI import ServicoReajusteUI
 from templates.abrircontaUI import AbrirContaUI
-
+from views import View
 
 import streamlit as st
 
-from views import View
-
 class IndexUI:
-      
-    def sidebar():
-      op = st.sidebar.selectbox("Menu", ["Manter Clientes", "Manter Serviços", "Manter Agenda", "Abrir Agenda do Dia", "Login", "Agenda de Hoje", "Reajuste de valores", "Abrir Conta"])
-      if op == "Manter Clientes": ManterClienteUI.main()
-      if op == "Manter Serviços": ManterServicoUI.main()
-      if op == "Manter Agenda": ManterAgendaUI.main()
-      if op == "Abrir Agenda do Dia": AbrirAgendaUI.main()
-      if op == "Login": LoginUI.main()
-      if op == "Agenda de Hoje": AgendaHojeUI.main()
-      if op == "Reajuste de valores": ServicoreajusteUI.main()
-      if op == "Abrir conta": AbrirContaUI.main()
 
+  def menu_visitante():
+    op = st.sidebar.selectbox("Menu", ["Login", "Abrir Conta"])
+    if op == "Login": LoginUI.main()
+    if op == "Abrir Conta": AbrirContaUI.main()
 
-      if "cliente_id" in st.session_state:
-        st.sidebar.write("Bem-vindo(a), " + st.session_state["cliente_nome"])
-      else:
-        st.sidebar.write("Nenhum usuário entrou no sistema")
+  def menu_admin():
+    op = st.sidebar.selectbox("Menu", ["Manter Agenda", "Manter Clientes", "Manter Serviços", "Abrir Agenda do Dia", "Reajustar Preço"])
+    if op == "Manter Agenda": ManterAgendaUI.main()
+    if op == "Manter Clientes": ManterClienteUI.main()
+    if op == "Manter Serviços": ManterServicoUI.main()
+    if op == "Abrir Agenda do Dia": AbrirAgendaUI.main()
+    if op == "Reajustar Preço": ServicoReajusteUI.main()
 
+  def menu_cliente():
+    op = st.sidebar.selectbox("Menu", ["Agenda de Hoje"])
+    if op == "Agenda de Hoje": AgendaHojeUI.main()
 
-      #if op == "Manter Clientes": st.session_state["page"] = "manter_clienteUI"
+  def btn_logout():
+    if st.sidebar.button("Logout"):
+      del st.session_state["cliente_id"]
+      del st.session_state["cliente_nome"]
+      st.rerun()
 
-    def main():
-      View.cliente_admin()
-      IndexUI.sidebar()
+  def sidebar():
+    if "cliente_id" not in st.session_state:
+      IndexUI.menu_visitante()   
+    else:
+      st.sidebar.write("Bem-vindo(a), " + st.session_state["cliente_nome"])
+      if st.session_state["cliente_nome"] == "admin": IndexUI.menu_admin()
+      else: IndexUI.menu_cliente()
+      IndexUI.btn_logout()  
 
-      #if "page" not in st.session_state: st.session_state["page"] = "equacaoUI"
-      #if st.session_state["page"] == "manter_clienteUI": ManterClienteUI.main()
+  def main():
+    View.cliente_admin()
+    IndexUI.sidebar()
 
 IndexUI.main()
-
-
-

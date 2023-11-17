@@ -49,7 +49,7 @@ class NCliente:
 
 
   @classmethod
-  def check_duplicate_email(cls, email):
+  def emailduplicado(cls, email):
     for cliente in cls.__clientes:
       if cliente.get_email() == email:
         return True
@@ -61,7 +61,7 @@ class NCliente:
   def inserir(cls, obj):
     cls.abrir()
 
-    if cls.check_duplicate_email(obj.get_email()):
+    if cls.emailduplicado(obj.get_email()):
       return False
     id = 0  # encontrar o maior id já usado
     for aux in cls.__clientes:

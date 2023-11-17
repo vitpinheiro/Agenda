@@ -1,3 +1,4 @@
+from multiprocessing.dummy import Value
 import time
 import streamlit as st
 from views import View
@@ -14,7 +15,10 @@ class AbrirContaUI:
       fone = st.text_input("Informe o fone")
       senha = st.text_input("Informe a senha")
       if st.button("Inserir"):
-        View.cliente_inserir(nome, email, fone, senha)
-        st.success("Conta criada com sucesso")
-        time.sleep(2)
-        st.rerun()
+        try:
+          View.cliente_inserir(nome, email, fone, senha)
+          st.success("Conta criada com sucesso")
+          time.sleep(2)
+          st.rerun()
+        except ValueError:
+          st.error("E-mail já utilizado")
