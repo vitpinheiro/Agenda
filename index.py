@@ -1,4 +1,4 @@
-from AgendarHorarioUI import AgendarHorarioUI
+from templates.AgendarHorarioUI import AgendarHorarioUI
 from templates.editarperfilUI import EditarPerfilUI
 from templates.manterclienteUI import ManterClienteUI
 from templates.manterservicoUI import ManterServicoUI
