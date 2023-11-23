@@ -24,10 +24,10 @@ class View:
 
   def cliente_atualizar(id, nome, email, fone, senha):
     cliente = Cliente(id, nome, email, fone, senha)
-    if nome == " ": raise ValueError()
+    if nome == "": raise ValueError()
     if fone == "": raise ValueError()
     if senha == "": raise ValueError()
-    if NCliente.emailduplicado() == True: raise ValueError()
+    # if NCliente.emailduplicado(email) == True: raise ValueError()
 
     NCliente.atualizar(cliente)
 

@@ -1,3 +1,4 @@
+from templates.editarperfilUI import EditarPerfilUI
 from templates.manterclienteUI import ManterClienteUI
 from templates.manterservicoUI import ManterServicoUI
 from templates.manteragendaUI import ManterAgendaUI
@@ -18,16 +19,19 @@ class IndexUI:
     if op == "Abrir Conta": AbrirContaUI.main()
 
   def menu_admin():
-    op = st.sidebar.selectbox("Menu", ["Manter Agenda", "Manter Clientes", "Manter Serviços", "Abrir Agenda do Dia", "Reajustar Preço"])
+    op = st.sidebar.selectbox("Menu", ["Manter Agenda", "Manter Clientes", "Manter Serviços", "Abrir Agenda do Dia", "Reajustar Preço", "Editar Perfil"])
     if op == "Manter Agenda": ManterAgendaUI.main()
     if op == "Manter Clientes": ManterClienteUI.main()
     if op == "Manter Serviços": ManterServicoUI.main()
     if op == "Abrir Agenda do Dia": AbrirAgendaUI.main()
     if op == "Reajustar Preço": ServicoReajusteUI.main()
+    if op == "Editar Perfil": EditarPerfilUI.main()
+
 
   def menu_cliente():
-    op = st.sidebar.selectbox("Menu", ["Agenda de Hoje"])
+    op = st.sidebar.selectbox("Menu", ["Agenda de Hoje", "Editar Perfil"])
     if op == "Agenda de Hoje": AgendaHojeUI.main()
+    if op == "Editar Perfil": EditarPerfilUI.main()
 
   def btn_logout():
     if st.sidebar.button("Logout"):
