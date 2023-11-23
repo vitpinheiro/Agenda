@@ -1,3 +1,4 @@
+from AgendarHorarioUI import AgendarHorarioUI
 from templates.editarperfilUI import EditarPerfilUI
 from templates.manterclienteUI import ManterClienteUI
 from templates.manterservicoUI import ManterServicoUI
@@ -29,9 +30,10 @@ class IndexUI:
 
 
   def menu_cliente():
-    op = st.sidebar.selectbox("Menu", ["Agenda de Hoje", "Editar Perfil"])
+    op = st.sidebar.selectbox("Menu", ["Agenda de Hoje", "Editar Perfil", "Agendar um horário"])
     if op == "Agenda de Hoje": AgendaHojeUI.main()
     if op == "Editar Perfil": EditarPerfilUI.main()
+    if op == "Agendar um horário": AgendarHorarioUI.main()
 
   def btn_logout():
     if st.sidebar.button("Logout"):

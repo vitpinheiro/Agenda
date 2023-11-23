@@ -83,8 +83,18 @@ class View:
       NServico.atualizar(Servico(servico.get_id(), servico.get_descricao(), servico.get_valor() * (1 + percentual/100), servico.get_duracao()))
       
       
+  def agenda_cliente(cliente, horario, servico):
+    NAgenda.atualizar(Agenda(horario.get_id(), horario.get_data(), False, cliente, servico.get_id()))
 
     
+  def agenda_listarsemana():
+    r = []
+    hoje = datetime.datetime.today()
+    fds = hoje + datetime.timedelta(days = 7)
+    for horario in View.agenda_listar():
+      if horario.get_confirmado() == False and fds.date() >= horario.get_data().date() >= hoje.date():
+        r.append(horario)
+    return r   
   
 
   def agenda_listar():
@@ -115,7 +125,11 @@ class View:
     aux = data_inicio
     if intervalo <0: raise ValueError()
     while aux <= data_fim :
-      NAgenda.inserir(Agenda(0, aux, False, 0, 0))
+      NAgenda.inserir(Agenda(0, aux, false, 0, 0))
       aux = aux + delta
 
- 
+  def agenda_solicitados():
+    r = []
+    for obj in NAgenda.listar_nao_confirmados():
+      if obj.get_id_cliente(): r.append(obj)
+    return r
